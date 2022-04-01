@@ -1,10 +1,11 @@
-import { APIVersion } from "discord-api-types/v10";
+import type { APIVersion } from "discord-api-types/v10";
 import type { RESTOptions } from "../REST";
 
+// make sure the typedefs match the version we're expecting
+export const DefaultVersion: typeof APIVersion = "10";
 export const DefaultUserAgent = "httpcord/1.0";
 
 export const DefaultRestOptions: RESTOptions = {
-  agent: {},
   api: "https://discord.com/api",
   cdn: "https://cdn.discordapp.com",
   headers: {},
@@ -14,7 +15,7 @@ export const DefaultRestOptions: RESTOptions = {
   rejectOnRateLimit: null,
   retries: 3,
   timeout: 15_000,
-  version: APIVersion,
+  version: DefaultVersion,
   hashSweepInterval: 14_400_000, // 4 Hours
   hashLifetime: 86_400_000, // 24 Hours
   handlerSweepInterval: 3_600_000, // 1 Hour

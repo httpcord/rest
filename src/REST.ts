@@ -1,6 +1,5 @@
 import type Collection from "@discordjs/collection";
 import { EventEmitter } from "events";
-import type { AgentOptions } from "node:https";
 import { CDN } from "./CDN";
 import type { IHandler } from "./Handlers";
 import type { HashData } from "./RequestManager";
@@ -19,11 +18,6 @@ import type { Route } from "./Utils";
  * Options to be passed when creating the REST instance
  */
 export interface RESTOptions {
-  /**
-   * HTTPS Agent options
-   * @default {}
-   */
-  agent: Omit<AgentOptions, "keepAlive">;
   /**
    * The base api path, without version
    * @default 'https://discord.com/api'
