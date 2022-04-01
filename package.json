@@ -1,13 +1,13 @@
 {
-  "name": "httpcord-rest",
+  "name": "@httpcord/rest",
   "version": "0.0.0",
   "description": "Friendly, standalone Discord HTTP API client",
-  "homepage": "https://github.com/andre4ik3/httpcord-rest#readme",
-  "repository": "git+https://github.com/andre4ik3/httpcord-rest.git",
+  "homepage": "https://github.com/httpcord/rest#readme",
+  "repository": "git+https://github.com/httpcord/rest.git",
   "author": "andre4ik3",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/andre4ik3/httpcord-rest/issues"
+    "url": "https://github.com/httpcord/rest/issues"
   },
   "main": "dist",
   "scripts": {

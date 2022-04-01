@@ -43,7 +43,7 @@ jobs:
 
     environment:
       name: "NPM"
-      url: "https://www.npmjs.com/package/httpcord-rest"
+      url: "https://www.npmjs.com/package/@httpcord/rest"
 
     steps:
       - name: "Checkout Repository"
