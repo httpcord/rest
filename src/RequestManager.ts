@@ -1,17 +1,14 @@
 import Collection from "@discordjs/collection";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import FormData from "form-data";
+import { FormData } from "formdata-node";
 import { EventEmitter } from "node:events";
 import { Agent as httpAgent } from "node:http";
 import { Agent as httpsAgent } from "node:https";
 import type { IHandler } from "./Handlers";
 import { SequentialHandler } from "./Handlers";
 import type { RestEvents, RESTOptions } from "./REST";
-import {
-  DefaultRestOptions,
-  DefaultUserAgent,
-  RESTEvents,
-} from "./utils/constants";
+import { DefaultRestOptions, DefaultUserAgent, RESTEvents } from "./Utils";
+import type { Route } from "./Utils";
 
 /**
  * Represents a file to be added to the request
@@ -113,7 +110,7 @@ export type RouteLike = `/${string}`;
  */
 export interface InternalRequest extends RequestData {
   method: RequestMethod;
-  fullRoute: RouteLike;
+  fullRoute: Route;
 }
 
 export type HandlerRequestData = Pick<
@@ -443,9 +440,10 @@ export class RequestManager extends EventEmitter {
       }
 
       // Set the final body to the form data
-      finalBody = formData;
+      // Type cast (only property missing from FormData is sort so who cares)
+      finalBody = formData as unknown as URLSearchParams;
       // Set the additional headers to the form data ones
-      additionalHeaders = formData.getHeaders();
+      additionalHeaders = { "Content-Type": "multipart/form-data" };
 
       // eslint-disable-next-line no-eq-null
     } else if (request.body != null) {

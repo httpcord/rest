@@ -2,4 +2,4 @@ export * from "./CDN";
 export * from "./Errors";
 export * from "./RequestManager";
 export * from "./REST";
-export * from "./utils/constants";
+export * from "./Utils";

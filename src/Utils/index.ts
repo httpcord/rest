@@ -1,5 +1,5 @@
 import type { RESTPatchAPIChannelJSONBody } from "discord-api-types/v10";
-import type { Response } from "../Fetch";
+import type { Response } from "cross-fetch";
 import { RequestMethod } from "../RequestManager";
 
 /**
@@ -42,3 +42,4 @@ export function hasSublimit(
 }
 
 export * from "./Constants";
+export * from "./Types";

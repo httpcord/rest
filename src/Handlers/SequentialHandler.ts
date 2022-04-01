@@ -7,7 +7,7 @@ import {
   OAuthErrorData,
   RateLimitError,
 } from "../Errors";
-import { fetch } from "../Fetch";
+import fetch from "cross-fetch";
 import type {
   HandlerRequestData,
   RequestManager,

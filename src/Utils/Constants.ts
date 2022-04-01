@@ -3,7 +3,7 @@ import type { RESTOptions } from "../REST";
 
 export const DefaultUserAgent = "httpcord/1.0";
 
-export const DefaultRestOptions: Required<RESTOptions> = {
+export const DefaultRestOptions: RESTOptions = {
   agent: {},
   api: "https://discord.com/api",
   cdn: "https://cdn.discordapp.com",

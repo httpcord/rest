@@ -13,6 +13,7 @@ import {
   RouteLike,
 } from "./RequestManager";
 import { DefaultRestOptions, RESTEvents } from "./Utils";
+import type { Route } from "./Utils";
 
 /**
  * Options to be passed when creating the REST instance
@@ -278,7 +279,7 @@ export class REST extends EventEmitter {
    * @param fullRoute The full route to query
    * @param options Optional request options
    */
-  public get(fullRoute: RouteLike, options: RequestData = {}) {
+  public get(fullRoute: Route, options: RequestData = {}) {
     return this.request({ ...options, fullRoute, method: RequestMethod.Get });
   }
 
@@ -287,7 +288,7 @@ export class REST extends EventEmitter {
    * @param fullRoute The full route to query
    * @param options Optional request options
    */
-  public delete(fullRoute: RouteLike, options: RequestData = {}) {
+  public delete(fullRoute: Route, options: RequestData = {}) {
     return this.request({
       ...options,
       fullRoute,
@@ -300,7 +301,7 @@ export class REST extends EventEmitter {
    * @param fullRoute The full route to query
    * @param options Optional request options
    */
-  public post(fullRoute: RouteLike, options: RequestData = {}) {
+  public post(fullRoute: Route, options: RequestData = {}) {
     return this.request({ ...options, fullRoute, method: RequestMethod.Post });
   }
 
@@ -309,7 +310,7 @@ export class REST extends EventEmitter {
    * @param fullRoute The full route to query
    * @param options Optional request options
    */
-  public put(fullRoute: RouteLike, options: RequestData = {}) {
+  public put(fullRoute: Route, options: RequestData = {}) {
     return this.request({ ...options, fullRoute, method: RequestMethod.Put });
   }
 
@@ -318,7 +319,7 @@ export class REST extends EventEmitter {
    * @param fullRoute The full route to query
    * @param options Optional request options
    */
-  public patch(fullRoute: RouteLike, options: RequestData = {}) {
+  public patch(fullRoute: Route, options: RequestData = {}) {
     return this.request({ ...options, fullRoute, method: RequestMethod.Patch });
   }
 
