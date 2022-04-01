@@ -1,5 +1,5 @@
 import type Collection from "@discordjs/collection";
-import { EventEmitter } from "node:events";
+import { EventEmitter } from "events";
 import type { AgentOptions } from "node:https";
 import { CDN } from "./CDN";
 import type { IHandler } from "./Handlers";
