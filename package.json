@@ -1,39 +1,33 @@
 {
-	"name": "httpcord-rest",
-	"version": "0.4.0-dev",
-	"description": "Friendly, standalone Discord HTTP API client",
-	"scripts": {
-		"build": "tsc"
-	},
-	"main": "./dist/index.js",
-	"typings": "./dist/index.d.ts",
-	"license": "Apache-2.0",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/discordjs/discord.js.git"
-	},
-	"bugs": {
-		"url": "https://github.com/discordjs/discord.js/issues"
-	},
-	"dependencies": {
-		"@discordjs/collection": "^0.5.0",
-		"@sapphire/async-queue": "^1.2.0",
-		"@sapphire/snowflake": "^3.1.0",
-		"discord-api-types": "^0.29.0",
-		"form-data": "^4.0.0"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.17.2",
-		"@babel/plugin-proposal-decorators": "^7.17.2",
-		"@babel/preset-env": "^7.16.11",
-		"@babel/preset-typescript": "^7.16.7",
-		"@types/jest": "^27.4.0",
-		"@typescript-eslint/eslint-plugin": "^5.11.0",
-		"@typescript-eslint/parser": "^5.11.0",
-		"eslint": "^8.9.0",
-		"typescript": "^4.5.5"
-	},
-	"engines": {
-		"node": ">=16.9.0"
-	}
+  "name": "httpcord-rest",
+  "version": "0.0.0",
+  "description": "Friendly, standalone Discord HTTP API client",
+  "homepage": "https://github.com/andre4ik3/httpcord-rest#readme",
+  "repository": "git+https://github.com/andre4ik3/httpcord-rest.git",
+  "author": "andre4ik3",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/andre4ik3/httpcord-rest/issues"
+  },
+  "main": "dist",
+  "scripts": {
+    "build": "tsc",
+    "lint": "npx eslint -f .github/workflows/formatter.js src/**/*.ts; exit 0"
+  },
+  "dependencies": {
+    "@discordjs/collection": "^0.5.0",
+    "@sapphire/async-queue": "^1.2.0",
+    "@sapphire/snowflake": "^3.1.0",
+    "discord-api-types": "^0.29.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "eslint": "^8.9.0",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=16.9.0"
+  }
 }
