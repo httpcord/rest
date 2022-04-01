@@ -19,6 +19,7 @@
     "@sapphire/async-queue": "^1.2.0",
     "@sapphire/snowflake": "^3.1.0",
     "discord-api-types": "^0.29.0",
+    "fetch-ponyfill": "^7.1.0",
     "form-data": "^4.0.0"
   },
   "devDependencies": {
