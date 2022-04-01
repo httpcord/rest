@@ -1,9 +1,7 @@
 import Collection from "@discordjs/collection";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { FormData } from "formdata-node";
-import { EventEmitter } from "node:events";
-import { Agent as httpAgent } from "node:http";
-import { Agent as httpsAgent } from "node:https";
+import { EventEmitter } from "events";
 import type { IHandler } from "./Handlers";
 import { SequentialHandler } from "./Handlers";
 import type { RestEvents, RESTOptions } from "./REST";
@@ -214,7 +212,6 @@ export class RequestManager extends EventEmitter {
 
   private hashTimer!: NodeJS.Timer;
   private handlerTimer!: NodeJS.Timer;
-  private agent: httpsAgent | httpAgent | null = null;
 
   public readonly options: RESTOptions;
 
@@ -372,10 +369,6 @@ export class RequestManager extends EventEmitter {
   } {
     const { options } = this;
 
-    this.agent ??= options.api.startsWith("https")
-      ? new httpsAgent({ ...options.agent, keepAlive: true })
-      : new httpAgent({ ...options.agent, keepAlive: true });
-
     let query = "";
 
     // If a query option is passed, use it
@@ -458,7 +451,6 @@ export class RequestManager extends EventEmitter {
     }
 
     const fetchOptions = {
-      agent: this.agent,
       body: finalBody,
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       headers: {
