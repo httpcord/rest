@@ -41,5 +41,8 @@ export function hasSublimit(
   return true;
 }
 
+export const sleep = (ms: number) =>
+  new Promise((res) => setTimeout(res, ms)) as Promise<void>;
+
 export * from "./Constants";
 export * from "./Types";

@@ -1,5 +1,4 @@
 import { AsyncQueue } from "@sapphire/async-queue";
-import { setTimeout as sleep } from "node:timers/promises";
 import {
   DiscordAPIError,
   DiscordErrorData,
@@ -14,7 +13,7 @@ import type {
   RouteData,
 } from "../RequestManager";
 import type { RateLimitData } from "../REST";
-import { hasSublimit, parseResponse, RESTEvents } from "../Utils";
+import { hasSublimit, parseResponse, RESTEvents, sleep } from "../Utils";
 import type { IHandler } from "./IHandler";
 
 /* Invalid request limiting is done on a per-IP basis, not a per-token basis.
@@ -149,7 +148,7 @@ export class SequentialHandler implements IHandler {
    * @returns
    */
   private async globalDelayFor(time: number): Promise<void> {
-    await sleep(time, undefined, { ref: false });
+    await sleep(time);
     this.manager.globalDelay = null;
   }
 
@@ -508,7 +507,7 @@ export class SequentialHandler implements IHandler {
         }
         this.#sublimitPromise?.resolve();
         this.#sublimitPromise = null;
-        await sleep(sublimitTimeout, undefined, { ref: false });
+        await sleep(sublimitTimeout);
         let resolve: () => void;
         const promise = new Promise<void>((res) => (resolve = res));
         this.#sublimitPromise = { promise, resolve: resolve! };
