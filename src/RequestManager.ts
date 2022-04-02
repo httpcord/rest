@@ -1,12 +1,12 @@
-import Collection from "@discordjs/collection";
+import { Collection } from "@discordjs/collection";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { FormData } from "formdata-node";
 import { EventEmitter } from "events";
+import { FormData } from "formdata-node";
 import type { IHandler } from "./Handlers";
 import { SequentialHandler } from "./Handlers";
 import type { RestEvents, RESTOptions } from "./REST";
-import { DefaultRestOptions, DefaultUserAgent, RESTEvents } from "./Utils";
 import type { Route } from "./Utils";
+import { DefaultRestOptions, DefaultUserAgent, RESTEvents } from "./Utils";
 
 /**
  * Represents a file to be added to the request

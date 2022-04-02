@@ -1,4 +1,4 @@
-import type Collection from "@discordjs/collection";
+import type { Collection } from "@discordjs/collection";
 import { EventEmitter } from "events";
 import { CDN } from "./CDN";
 import type { IHandler } from "./Handlers";
@@ -11,8 +11,8 @@ import {
   RequestMethod,
   RouteLike,
 } from "./RequestManager";
-import { DefaultRestOptions, RESTEvents } from "./Utils";
 import type { Route } from "./Utils";
+import { DefaultRestOptions, RESTEvents } from "./Utils";
 
 /**
  * Options to be passed when creating the REST instance

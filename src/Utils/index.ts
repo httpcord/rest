@@ -41,8 +41,11 @@ export function hasSublimit(
   return true;
 }
 
-export const sleep = (ms: number) =>
-  new Promise((res) => setTimeout(res, ms)) as Promise<void>;
+/**
+ * Sleeps for X milliseconds then resolves.
+ * @param m The number of milliseconds to sleep for.
+ */
+export const sleep = (m: number) => new Promise<void>((r) => setTimeout(r, m));
 
 export * from "./Constants";
 export * from "./Types";
