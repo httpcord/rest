@@ -304,8 +304,8 @@ export class RequestManager extends EventEmitter {
    * Sets the authorization token that should be used for requests
    * @param token The authorization token to use
    */
-  public setToken(token: string) {
-    this.#token = token;
+  public setToken(token?: string) {
+    this.#token = token || null;
     return this;
   }
 

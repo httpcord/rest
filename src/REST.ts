@@ -263,7 +263,7 @@ export class REST extends EventEmitter {
    * Sets the authorization token that should be used for requests
    * @param token The authorization token to use
    */
-  public setToken(token: string) {
+  public setToken(token?: string) {
     this.requestManager.setToken(token);
     return this;
   }
