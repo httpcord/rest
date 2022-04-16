@@ -1,7 +1,7 @@
 import { build, emptyDir } from "https://deno.land/x/dnt@0.23.0/mod.ts";
 
 // Compute version
-const version = `0.0.0-${Deno.args[0].slice(0, 7)}`;
+const gitVersion = `0.0.0-${Deno.args[0].slice(0, 7)}`;
 
 await emptyDir("./npm");
 
@@ -23,7 +23,7 @@ await build({
   compilerOptions: { target: "Latest", types: ["node"] } as any,
   package: {
     name: "@httpcord/rest",
-    version: Deno.args[0],
+    version: gitVersion,
     description: "Friendly, standalone Discord HTTP API client",
     homepage: "https://github.com/httpcord/rest#readme",
     repository: "git+https://github.com/username/repo.git",
