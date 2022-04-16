@@ -1,8 +1,6 @@
-import type { Collection } from "@discordjs/collection";
-import { EventEmitter } from "events";
-import { CDN } from "./CDN";
-import type { IHandler } from "./Handlers";
-import type { HashData } from "./RequestManager";
+import { type Collection, EventEmitter } from "./deps/mod.ts";
+import { CDN } from "./CDN.ts";
+import type { IHandler } from "./Handlers/mod.ts";
 import {
   HandlerRequestData,
   InternalRequest,
@@ -10,9 +8,9 @@ import {
   RequestManager,
   RequestMethod,
   RouteLike,
-} from "./RequestManager";
-import type { Route } from "./Utils";
-import { DefaultRestOptions, RESTEvents } from "./Utils";
+  type HashData,
+} from "./RequestManager.ts";
+import { type Route, DefaultRestOptions, RESTEvents } from "./Utils/mod.ts";
 
 /**
  * Options to be passed when creating the REST instance
@@ -186,8 +184,8 @@ export interface RestEvents {
   rateLimited: [rateLimitInfo: RateLimitData];
   request: [request: APIRequest];
   response: [request: APIRequest, response: Response];
-  newListener: [name: string, listener: (...args: any) => void];
-  removeListener: [name: string, listener: (...args: any) => void];
+  newListener: [name: string, listener: (...args: unknown[]) => void];
+  removeListener: [name: string, listener: (...args: unknown[]) => void];
   hashSweep: [sweptHashes: Collection<string, HashData>];
   handlerSweep: [sweptHandlers: Collection<string, IHandler>];
 }
@@ -199,7 +197,7 @@ export interface REST {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   once: (<K extends keyof RestEvents>(
@@ -208,7 +206,7 @@ export interface REST {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   emit: (<K extends keyof RestEvents>(
@@ -217,7 +215,7 @@ export interface REST {
   ) => boolean) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      ...args: any[]
+      ...args: unknown[]
     ) => boolean);
 
   off: (<K extends keyof RestEvents>(
@@ -226,7 +224,7 @@ export interface REST {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   removeAllListeners: (<K extends keyof RestEvents>(event?: K) => this) &

@@ -1,5 +1,5 @@
-import type { APIVersion } from "discord-api-types/v10";
-import type { RESTOptions } from "../REST";
+import type { APIVersion } from "../deps/mod.ts";
+import type { RESTOptions } from "../REST.ts";
 
 // make sure the typedefs match the version we're expecting
 export const DefaultVersion: typeof APIVersion = "10";

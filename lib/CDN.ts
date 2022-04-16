@@ -6,7 +6,7 @@ import {
   ImageExtension,
   ImageSize,
   StickerExtension,
-} from "./Utils";
+} from "./Utils/mod.ts";
 
 /**
  * The options used for image URLs

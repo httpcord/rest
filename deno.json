@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "ci:lint": "deno lint --json | deno run --allow-read=. .github/workflows/lint.ts",
+    "ci:transform": "deno run -A .github/workflows/transform.ts"
+  },
+  "lint": {
+    "files": {
+      "exclude": ["npm"]
+    }
+  }
+}

@@ -1,20 +1,19 @@
-import { AsyncQueue } from "@sapphire/async-queue";
+import { AsyncQueue } from "../deps/mod.ts";
 import {
   DiscordAPIError,
   DiscordErrorData,
   HTTPError,
   OAuthErrorData,
   RateLimitError,
-} from "../Errors";
-import fetch from "cross-fetch";
+} from "../Errors/mod.ts";
 import type {
   HandlerRequestData,
   RequestManager,
   RouteData,
-} from "../RequestManager";
-import type { RateLimitData } from "../REST";
-import { hasSublimit, parseResponse, RESTEvents, sleep } from "../Utils";
-import type { IHandler } from "./IHandler";
+} from "../RequestManager.ts";
+import type { RateLimitData } from "../REST.ts";
+import { hasSublimit, parseResponse, RESTEvents, sleep } from "../Utils/mod.ts";
+import type { IHandler } from "./IHandler.ts";
 
 /* Invalid request limiting is done on a per-IP basis, not a per-token basis.
  * The best we can do is track invalid counts process-wide (on the theory that
@@ -324,14 +323,11 @@ export class SequentialHandler implements IHandler {
     const timeout = setTimeout(
       () => controller.abort(),
       this.manager.options.timeout
-    ).unref();
+    );
     let res: Response;
 
     try {
-      // node-fetch typings are a bit weird, so we have to cast to any to get the correct signature
-      // Type 'AbortSignal' is not assignable to type 'import("discord.js-modules/node_modules/@types/node-fetch/externals").AbortSignal'
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      res = await fetch(url, { ...options, signal: controller.signal as any });
+      res = await fetch(url, { ...options, signal: controller.signal });
     } catch (error: unknown) {
       // Retry the specified number of times for possible timed out requests
       if (

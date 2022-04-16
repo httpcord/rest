@@ -5,7 +5,7 @@ many improvements made here can be used in other places, e.g. in browsers.
 
 ## Main changes
 
-- `fetch-ponyfill` instead of `node-fetch` - browser-compatible!
+- Rewrite in Deno - browser-compatible!
 - Un-private some private methods and make it more open.
 - Some general shifting around of parameters to make it more predictable.
 

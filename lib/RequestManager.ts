@@ -1,12 +1,12 @@
-import { Collection } from "@discordjs/collection";
-import { DiscordSnowflake } from "@sapphire/snowflake";
-import { EventEmitter } from "events";
-import { FormData } from "formdata-node";
-import type { IHandler } from "./Handlers";
-import { SequentialHandler } from "./Handlers";
-import type { RestEvents, RESTOptions } from "./REST";
-import type { Route } from "./Utils";
-import { DefaultRestOptions, DefaultUserAgent, RESTEvents } from "./Utils";
+import { Collection, DiscordSnowflake, EventEmitter } from "./deps/mod.ts";
+import { type IHandler, SequentialHandler } from "./Handlers/mod.ts";
+import type { RestEvents, RESTOptions } from "./REST.ts";
+import {
+  DefaultRestOptions,
+  DefaultUserAgent,
+  RESTEvents,
+  type Route,
+} from "./Utils/mod.ts";
 
 /**
  * Represents a file to be added to the request
@@ -25,7 +25,7 @@ export interface RawFile {
   /**
    * The actual data for the file
    */
-  data: string | number | boolean | Buffer;
+  data: string | number | boolean | Blob;
 }
 
 /**
@@ -144,7 +144,7 @@ export interface RequestManager {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   once: (<K extends keyof RestEvents>(
@@ -153,7 +153,7 @@ export interface RequestManager {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   emit: (<K extends keyof RestEvents>(
@@ -162,7 +162,7 @@ export interface RequestManager {
   ) => boolean) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      ...args: any[]
+      ...args: unknown[]
     ) => boolean);
 
   off: (<K extends keyof RestEvents>(
@@ -171,7 +171,7 @@ export interface RequestManager {
   ) => this) &
     (<S extends string | symbol>(
       event: Exclude<S, keyof RestEvents>,
-      listener: (...args: any[]) => void
+      listener: (...args: unknown[]) => void
     ) => this);
 
   removeAllListeners: (<K extends keyof RestEvents>(event?: K) => this) &
@@ -210,8 +210,8 @@ export class RequestManager extends EventEmitter {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #token: string | null = null;
 
-  private hashTimer!: NodeJS.Timer;
-  private handlerTimer!: NodeJS.Timer;
+  private hashTimer!: number;
+  private handlerTimer!: number;
 
   public readonly options: RESTOptions;
 
@@ -267,7 +267,7 @@ export class RequestManager extends EventEmitter {
 
         // Fire event
         this.emit(RESTEvents.HashSweep, sweptHashes);
-      }, this.options.hashSweepInterval).unref();
+      }, this.options.hashSweepInterval);
     }
 
     if (
@@ -296,7 +296,7 @@ export class RequestManager extends EventEmitter {
 
         // Fire event
         this.emit(RESTEvents.HandlerSweep, sweptHandlers);
-      }, this.options.handlerSweepInterval).unref();
+      }, this.options.handlerSweepInterval);
     }
   }
 
@@ -314,7 +314,7 @@ export class RequestManager extends EventEmitter {
    * @param request All the information needed to make a request
    * @returns The response from the api request
    */
-  public async queueRequest(request: InternalRequest): Promise<unknown> {
+  public queueRequest(request: InternalRequest): Promise<unknown> {
     // Generalize the endpoint to its route data
     const routeId = RequestManager.generateRouteData(
       request.fullRoute,
@@ -415,6 +415,11 @@ export class RequestManager extends EventEmitter {
 
       // Attach all files to the request
       for (const [index, file] of request.files.entries()) {
+        // Convert file data to buffer if it is not one already.
+        if (typeof file.data !== "object") {
+          file.data = new Blob([file.data.toString()]);
+        }
+
         formData.append(file.key ?? `files[${index}]`, file.data, file.name);
       }
 
@@ -423,7 +428,7 @@ export class RequestManager extends EventEmitter {
       if (request.body != null) {
         if (request.appendToFormData) {
           for (const [key, value] of Object.entries(
-            request.body as Record<string, unknown>
+            request.body as Record<string, Blob>
           )) {
             formData.append(key, value);
           }
@@ -433,8 +438,7 @@ export class RequestManager extends EventEmitter {
       }
 
       // Set the final body to the form data
-      // Type cast (only property missing from FormData is sort so who cares)
-      finalBody = formData as unknown as URLSearchParams;
+      finalBody = formData;
       // Set the additional headers to the form data ones
       additionalHeaders = { "Content-Type": "multipart/form-data" };
 
