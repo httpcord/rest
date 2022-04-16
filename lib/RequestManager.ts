@@ -1,12 +1,13 @@
 import { Collection, DiscordSnowflake, EventEmitter } from "./deps/mod.ts";
-import { type IHandler, SequentialHandler } from "./Handlers/mod.ts";
-import type { RestEvents, RESTOptions } from "./REST.ts";
+import { SequentialHandler } from "./Handlers/mod.ts";
 import {
   DefaultRestOptions,
   DefaultUserAgent,
   RESTEvents,
-  type Route,
 } from "./Utils/mod.ts";
+import type { IHandler } from "./Handlers/mod.ts";
+import type { RestEvents, RESTOptions } from "./REST.ts";
+import type { Route } from "./Utils/mod.ts";
 
 /**
  * Represents a file to be added to the request

@@ -20,7 +20,6 @@ await build({
       },
     ],
   },
-  compilerOptions: { target: "Latest", types: ["node"] } as any,
   package: {
     name: "@httpcord/rest",
     version: gitVersion,

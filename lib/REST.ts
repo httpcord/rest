@@ -1,6 +1,6 @@
-import { type Collection, EventEmitter } from "./deps/mod.ts";
 import { CDN } from "./CDN.ts";
-import type { IHandler } from "./Handlers/mod.ts";
+import { DefaultRestOptions, RESTEvents } from "./Utils/mod.ts";
+import { EventEmitter } from "./deps/mod.ts";
 import {
   HandlerRequestData,
   InternalRequest,
@@ -8,9 +8,11 @@ import {
   RequestManager,
   RequestMethod,
   RouteLike,
-  type HashData,
 } from "./RequestManager.ts";
-import { type Route, DefaultRestOptions, RESTEvents } from "./Utils/mod.ts";
+import type { Collection } from "./deps/mod.ts";
+import type { HashData } from "./RequestManager.ts";
+import type { IHandler } from "./Handlers/mod.ts";
+import type { Route } from "./Utils/mod.ts";
 
 /**
  * Options to be passed when creating the REST instance
