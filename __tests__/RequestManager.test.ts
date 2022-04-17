@@ -1,16 +1,7 @@
-import { DefaultRestOptions, REST } from "../mod.ts";
-import { denock, assertEquals, assertRejects } from "./deps.ts";
+import { REST } from "../mod.ts";
+import { assertEquals, assertRejects } from "./deps.ts";
 
 const api = new REST();
-const url = new URL(`${DefaultRestOptions.api}/v${DefaultRestOptions.version}`);
-
-denock({
-  host: url.host,
-  path: `${url.pathname}/gateway`,
-  method: "GET",
-  protocol: "https",
-  responseBody: { test: true },
-});
 
 Deno.test("no token", async () => {
   const promise = () => api.get("/gateway");
