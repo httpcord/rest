@@ -48,7 +48,7 @@ jobs:
   Test-Node:
     name: "Test (Node ${{ matrix.node }})"
     runs-on: "ubuntu-latest"
-    strategy: { matrix: { node: [12, 14, 16, 17] } }
+    strategy: { matrix: { node: [12, 14, 16, 17] }, fail-fast: false }
     needs: [Lint, Check]
 
     steps:
