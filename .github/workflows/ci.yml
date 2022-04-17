@@ -30,9 +30,43 @@ jobs:
       - name: "Check Code"
         run: "deno run mod.ts"
 
-  Publish:
+  Test-Deno:
+    name: "Test (Deno)"
     runs-on: "ubuntu-latest"
     needs: [Lint, Check]
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v2
+
+      - name: "Setup Deno"
+        uses: denoland/setup-deno@v1
+
+      - name: "Test Code"
+        run: "deno task ci:test"
+
+  Test-Node:
+    name: "Test (Node ${{ matrix.node }})"
+    strategy: { matrix: { node: [12, 14, 16, 17] } }
+    needs: [Lint, Check]
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v2
+
+      - name: "Setup Deno"
+        uses: denoland/setup-deno@v1
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v2
+        with: { node-version: "${{ matrix.node }}" }
+
+      - name: "Transform & Code"
+        run: "deno task ci:transform test"
+
+  Publish:
+    runs-on: "ubuntu-latest"
+    needs: [Test-Deno, Test-Node]
     concurrency: "npm"
 
     environment:
