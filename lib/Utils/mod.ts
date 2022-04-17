@@ -44,14 +44,11 @@ export function makeURLSearchParams(options?: Record<string, unknown>) {
   return params;
 }
 
-// deno-lint-ignore no-explicit-any
-export type ParsedResponse = ArrayBuffer | Record<PropertyKey, any> | null;
-
 /**
  * Converts the response to usable data
  * @param res The node-fetch response
  */
-export function parseResponse(res: Response): Promise<ParsedResponse> {
+export function parseResponse(res: Response): Promise<unknown> {
   if (res.headers?.get("Content-Type")?.startsWith("application/json")) {
     return res.json();
   }

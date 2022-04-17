@@ -7,6 +7,9 @@ const newSnowflake: Snowflake = DiscordSnowflake.generate().toString();
 const api = new REST().setToken("A-Very-Fake-Token");
 const url = new URL(`${DefaultRestOptions.api}/v${DefaultRestOptions.version}`);
 
+// deno-lint-ignore no-explicit-any
+type ObjectType = Record<PropertyKey, any>;
+
 function nock(
   method: DenockOptions["method"],
   route: string,
@@ -61,31 +64,31 @@ function nock(
 Deno.test("simple GET", async () => {
   nock("GET", "/gateway", { responseBody: { test: true } });
   const r = await api.get("/gateway");
-  assertObjectMatch(r!, { test: true });
+  assertObjectMatch(r as ObjectType, { test: true });
 });
 
 Deno.test("simple DELETE", async () => {
   nock("DELETE", "/gateway", { responseBody: { test: true } });
   const r = await api.delete("/gateway");
-  assertObjectMatch(r!, { test: true });
+  assertObjectMatch(r as ObjectType, { test: true });
 });
 
 Deno.test("simple PATCH", async () => {
   nock("PATCH", "/gateway", { responseBody: { test: true } });
   const r = await api.patch("/gateway");
-  assertObjectMatch(r!, { test: true });
+  assertObjectMatch(r as ObjectType, { test: true });
 });
 
 Deno.test("simple PUT", async () => {
   nock("PUT", "/gateway", { responseBody: { test: true } });
   const r = await api.put("/gateway");
-  assertObjectMatch(r!, { test: true });
+  assertObjectMatch(r as ObjectType, { test: true });
 });
 
 Deno.test("simple POST", async () => {
   nock("POST", "/gateway", { responseBody: { test: true } });
   const r = await api.post("/gateway");
-  assertObjectMatch(r!, { test: true });
+  assertObjectMatch(r as ObjectType, { test: true });
 });
 
 // test("getQuery", async () => {

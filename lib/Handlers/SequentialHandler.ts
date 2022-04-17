@@ -12,13 +12,7 @@ import type {
   RouteData,
 } from "../RequestManager.ts";
 import type { RateLimitData } from "../REST.ts";
-import {
-  hasSublimit,
-  parseResponse,
-  RESTEvents,
-  sleep,
-  ParsedResponse,
-} from "../Utils/mod.ts";
+import { hasSublimit, parseResponse, RESTEvents, sleep } from "../Utils/mod.ts";
 import type { IHandler } from "./IHandler.ts";
 
 /* Invalid request limiting is done on a per-IP basis, not a per-token basis.
@@ -187,7 +181,7 @@ export class SequentialHandler implements IHandler {
     url: string,
     options: RequestInit,
     requestData: HandlerRequestData
-  ): Promise<ParsedResponse> {
+  ): Promise<unknown> {
     let queue = this.#asyncQueue;
     let queueType = QueueType.Standard;
     // Separate sublimited requests when already sublimited
@@ -251,7 +245,7 @@ export class SequentialHandler implements IHandler {
     options: RequestInit,
     requestData: HandlerRequestData,
     retries = 0
-  ): Promise<ParsedResponse> {
+  ): Promise<unknown> {
     /*
      * After calculations have been done, pre-emptively stop further requests
      * Potentially loop until this task can run if e.g. the global rate limit is hit twice
