@@ -96,4 +96,5 @@ jobs:
         run: |
           cd npm
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          npm publish --access public
+          npm deprecate @httpcord/rest@"~$(jq --raw-output '.version' package.json)" "This old development version is no longer supported." || true
+          npm publish --access public --tag dev
