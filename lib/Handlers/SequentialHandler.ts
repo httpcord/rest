@@ -12,7 +12,13 @@ import type {
   RouteData,
 } from "../RequestManager.ts";
 import type { RateLimitData } from "../REST.ts";
-import { hasSublimit, parseResponse, RESTEvents, sleep } from "../Utils/mod.ts";
+import {
+  hasSublimit,
+  parseResponse,
+  RESTEvents,
+  sleep,
+  ParsedResponse,
+} from "../Utils/mod.ts";
 import type { IHandler } from "./IHandler.ts";
 
 /* Invalid request limiting is done on a per-IP basis, not a per-token basis.
@@ -181,7 +187,7 @@ export class SequentialHandler implements IHandler {
     url: string,
     options: RequestInit,
     requestData: HandlerRequestData
-  ): Promise<unknown> {
+  ): Promise<ParsedResponse> {
     let queue = this.#asyncQueue;
     let queueType = QueueType.Standard;
     // Separate sublimited requests when already sublimited
@@ -245,7 +251,7 @@ export class SequentialHandler implements IHandler {
     options: RequestInit,
     requestData: HandlerRequestData,
     retries = 0
-  ): Promise<unknown> {
+  ): Promise<ParsedResponse> {
     /*
      * After calculations have been done, pre-emptively stop further requests
      * Potentially loop until this task can run if e.g. the global rate limit is hit twice
@@ -366,11 +372,11 @@ export class SequentialHandler implements IHandler {
 
     let retryAfter = 0;
 
-    const limit = res.headers.get("X-RateLimit-Limit");
-    const remaining = res.headers.get("X-RateLimit-Remaining");
-    const reset = res.headers.get("X-RateLimit-Reset-After");
-    const hash = res.headers.get("X-RateLimit-Bucket");
-    const retry = res.headers.get("Retry-After");
+    const limit = res.headers?.get("X-RateLimit-Limit");
+    const remaining = res.headers?.get("X-RateLimit-Remaining");
+    const reset = res.headers?.get("X-RateLimit-Reset-After");
+    const hash = res.headers?.get("X-RateLimit-Bucket");
+    const retry = res.headers?.get("Retry-After");
 
     // Update the total number of requests that can be made before the rate limit resets
     this.limit = limit ? Number(limit) : Infinity;

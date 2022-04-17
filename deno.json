@@ -1,6 +1,7 @@
 {
   "tasks": {
     "ci:lint": "deno lint --json | deno run --allow-read=. .github/workflows/lint.ts",
+    "ci:test": "deno test",
     "ci:transform": "deno run -A .github/workflows/transform.ts"
   },
   "lint": {

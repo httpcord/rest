@@ -315,7 +315,7 @@ export class RequestManager extends EventEmitter {
    * @param request All the information needed to make a request
    * @returns The response from the api request
    */
-  public queueRequest(request: InternalRequest): Promise<unknown> {
+  public queueRequest(request: InternalRequest) {
     // Generalize the endpoint to its route data
     const routeId = RequestManager.generateRouteData(
       request.fullRoute,
