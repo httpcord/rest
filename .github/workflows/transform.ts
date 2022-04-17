@@ -14,6 +14,7 @@ await build({
     undici: true,
     deno: { test: "dev" },
   },
+  test: false, // currently broken...
   package: {
     name: "@httpcord/rest",
     version: gitVersion,

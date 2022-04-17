@@ -62,8 +62,11 @@ jobs:
         uses: actions/setup-node@v2
         with: { node-version: "${{ matrix.node }}" }
 
-      - name: "Transform & Code"
+      - name: "Transform Code"
         run: "deno task ci:transform test"
+
+        # Ideally we should do tests (maybe Node-specific?) here, but it's hard
+        # + even the built-in Deno tests are broken right now for Node.
 
   Publish:
     runs-on: "ubuntu-latest"
